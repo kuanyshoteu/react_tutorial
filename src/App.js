@@ -4,23 +4,46 @@ import Header from './components/Header';
 import Trello from './components/Columns';
 import Task from './components/Task';
 import 'bootstrap/dist/css/bootstrap.min.css'
+import data from './components/data';
 
 function App() {
-    let a = {
-      name: "Alan",
-      phone: "777",
-      email: "alan@mail.com",
-      img: "./airplane.png",
-    }
+ 
     return (
         <div>
-            <Header />
-            <Trello />
-            <Task person={a}/>
+            <div id='mainScreen'>
+                <Header />
+                <Trello />
+                {
+                data.map(card2 => {
+                        return <Task person={card2}></Task>
+                    }
+                )}
+
+                <button onClick={show_modal} className='btn btn-warning'>Show Modal</button>
+            </div>
+            <div id='modalScreen' onClick={hide_modal} className='modalScreen hidden'>
+                <div className='modalBox'>
+                    <a id='closeIcon' onClick={hide_modal} className='closeIcon'>x</a>
+                    <button className='btn btn-primary'>It works</button>
+                </div>
+            </div>
         </div>
     )
 }
-
+function show_modal(){
+    let modal = document.getElementById('modalScreen')
+    let main = document.getElementById('mainScreen')
+    modal.classList.remove('hidden')
+    main.classList.add('blur-in')
+}
+function hide_modal(event){
+    if(event.target.id == "modalScreen" || event.target.id == "closeIcon"){
+        let modal = document.getElementById('modalScreen')
+        let main = document.getElementById('mainScreen')
+        modal.classList.add('hidden')
+        main.classList.remove('blur-in')
+    }
+}
 
 
 
