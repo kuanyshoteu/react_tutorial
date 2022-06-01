@@ -1,18 +1,18 @@
 import ColumnCards from './Cards';
 
-
-
 function Trello({data}){
     return (
     <div className='flex'>
         {
-        data.map(columnObject => {
-            <Column columnObject={columnObject} />
+        data.map(columnObject =>  {
+            return <Column columnObject={columnObject} />
         })
         }
     </div>
     )
 }
+
+
 function Column({columnObject}){
     return (
     <div className="horiz-scroll p-5 bg-primary bg-opacity-25">
