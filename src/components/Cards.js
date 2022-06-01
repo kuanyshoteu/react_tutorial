@@ -1,5 +1,7 @@
 
-function ColumnCards(columnIndex){
+function ColumnCards({cardsData}){
+
+    
     let cards = []
     for(var i = 0; i < 4; i++){
         cards.push(Card(columnIndex*4 + i))

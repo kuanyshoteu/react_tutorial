@@ -9,10 +9,7 @@ function work(){
 export default function Task({person}){
     return (
         <div>
-            <div className="name">{person.name}</div>
-            <div className="phone">{person.phone}</div>
-            <div className="email">{person.email}</div>
-            <img className="img" src={person.img}></img>
+            <div className="name" id={person.id}>{person.name} {person.column}</div>
         </div>
     )
 }

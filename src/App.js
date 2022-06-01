@@ -12,7 +12,10 @@ function App() {
         <div>
             <div id='mainScreen'>
                 <Header />
-                <Trello />
+                <Trello data={data} />
+
+
+                
                 {
                 data.map(card2 => {
                         return <Task person={card2}></Task>

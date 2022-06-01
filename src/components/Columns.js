@@ -1,24 +1,25 @@
 import ColumnCards from './Cards';
 
 
-let data = [[]]
 
-
-function Trello(){
-    let table = []
-    for (var i = 0; i <= 5; i++){
-        let column = Column(i)
-        table.push(column)
-    }
-    return <div className='flex'>{table}</div>
+function Trello({data}){
+    return (
+    <div className='flex'>
+        {
+        data.map(columnObject => {
+            <Column columnObject={columnObject} />
+        })
+        }
+    </div>
+    )
 }
-
-function Column(index){
-    let column = <div class="horiz-scroll p-5 bg-primary bg-opacity-25">
-        <div class="column rounded bg-secondary bg-opacity-25 p-3">
-            <b>Пн 02</b>
+function Column({columnObject}){
+    return (
+    <div className="horiz-scroll p-5 bg-primary bg-opacity-25">
+        <div id={columnObject.id} className="column rounded bg-secondary bg-opacity-25 p-3">
+            <b>{columnObject.name}</b>
             <div className='allowDrop' onDrop={drop} onDragOver={allowDrop}>
-                {ColumnCards(index)}
+                <ColumnCards cardsData={columnObject.cards}/>
             </div>
             <textarea placeholder="Ввести заголовок для этой карточки" class="my-2 form-control"></textarea>
             <button class="btn btn-primary btn-sm">
@@ -26,7 +27,7 @@ function Column(index){
             </button>
         </div>
     </div>
-    return column
+    )
 }
 function drop(ev){
     var data = ev.dataTransfer.getData("text");
