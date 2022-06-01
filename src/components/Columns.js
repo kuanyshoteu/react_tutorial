@@ -1,17 +1,16 @@
 import ColumnCards from './Cards';
-
 function Trello({data}){
+    console.log(data)
     return (
-    <div className='flex'>
-        {
-        data.map(columnObject =>  {
+        <div className='flex'>
+            {
+        data.map(columnObject => {
             return <Column columnObject={columnObject} />
         })
         }
     </div>
     )
 }
-
 
 function Column({columnObject}){
     return (

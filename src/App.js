@@ -5,22 +5,29 @@ import Trello from './components/Columns';
 import Task from './components/Task';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import data from './components/data';
+import React from 'react';
 
 function App() {
- 
+    // let x = React.useState(77)[0]
+    // let f = React.useState(5)[1]
+    let [number, setNumber] = React.useState(77)
+    
+    
+    function update(){
+        setNumber(oldNumber => {
+            return oldNumber+5
+        })
+    }
     return (
         <div>
             <div id='mainScreen'>
                 <Header />
                 <Trello data={data} />
-
-
+                <Task></Task>
                 
-                {
-                data.map(card2 => {
-                        return <Task person={card2}></Task>
-                    }
-                )}
+                <div className='text-center'>{number}</div>
+                <button onClick={update}>Update</button>
+
 
                 <button onClick={show_modal} className='btn btn-warning'>Show Modal</button>
             </div>
