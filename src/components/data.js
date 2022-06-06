@@ -5,15 +5,15 @@ let data = [
         cards: [
             {
                 name: 'Card 1',
-                id: 'card1',     
+                id: 'card1',
             },
             {
                 name: 'Card 2',
-                id: 'card2',     
+                id: 'card2',
             },
             {
                 name: 'Card 3',
-                id: 'card3',     
+                id: 'card3',
             },
         ]
     },

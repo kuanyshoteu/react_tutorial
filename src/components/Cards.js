@@ -4,7 +4,7 @@ function ColumnCards({cardsData}){
         <div>
             {
                 cardsData.map(cardObject => {
-                    return <Card cardObject={cardObject} />
+                    return <Card key={cardObject.id} cardObject={cardObject} />
                 })
             }
         </div>

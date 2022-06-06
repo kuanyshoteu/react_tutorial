@@ -8,27 +8,48 @@ import data from './components/data';
 import React from 'react';
 
 function App() {
-    // let x = React.useState(77)[0]
-    // let f = React.useState(5)[1]
-    let [number, setNumber] = React.useState(77)
-    
-    
+    let [number, setNumber] = React.useState(
+        [
+            {
+                name: "card 1",
+                id: "card1",
+                isImportant: false,
+            },
+            {
+                name: "card 2",
+                id: "card2",
+                isImportant: false,
+            }
+        ]
+    )
+
     function update(){
-        setNumber(oldNumber => {
-            return oldNumber+5
+        setNumber(function (oldArray) {
+            let newArray = []
+            oldArray.map(oldObject => {
+                let newName = "card " + (parseInt(oldObject.name.substring(5)) + 9)
+                let newObject = {
+                    ...oldObject, 
+                    name: newName,
+                }
+                newArray.push(newObject)
+            })
+            return newArray
         })
     }
+    let [countId, setcountId] = React.useState(10)
     return (
         <div>
             <div id='mainScreen'>
                 <Header />
-                <Trello data={data} />
+                <Trello data={data} setcountId={setcountId} countId={countId}/>
                 <Task></Task>
-                
-                <div className='text-center'>{number}</div>
+                {
+                    number.map(crntObject => {
+                        return <div key={crntObject.id} className='text-center'>{crntObject.name}</div>
+                    })
+                }
                 <button onClick={update}>Update</button>
-
-
                 <button onClick={show_modal} className='btn btn-warning'>Show Modal</button>
             </div>
             <div id='modalScreen' onClick={hide_modal} className='modalScreen hidden'>
@@ -47,26 +68,13 @@ function show_modal(){
     main.classList.add('blur-in')
 }
 function hide_modal(event){
-    if(event.target.id == "modalScreen" || event.target.id == "closeIcon"){
+    if(event.target.id === "modalScreen" || event.target.id === "closeIcon"){
         let modal = document.getElementById('modalScreen')
         let main = document.getElementById('mainScreen')
         modal.classList.add('hidden')
         main.classList.remove('blur-in')
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-// 19:05 
 function Hundred(){
     var buttons = [] 
     for(var i = 0; i < 100; i++){
@@ -75,7 +83,5 @@ function Hundred(){
     }
     return buttons
 }
-
-
 
 export default App;
