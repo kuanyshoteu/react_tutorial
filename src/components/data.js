@@ -15,7 +15,7 @@ let data = [
                 name: 'Card 3',
                 id: 'card3',
             },
-        ]
+        ],
     },
     {
         name: "Column 2",
@@ -34,21 +34,6 @@ let data = [
                 id: 'card6',     
             },
         ]
-    },
-    {
-        name: "Column 3",
-        id: 'column3',
-        cards: []
-    },
-    {
-        name: "Column 4",
-        id: 'column4',
-        cards: []
-    },
-    {
-        name: "Column 5",
-        id: 'column5',
-        cards: []
     },
 ]
 

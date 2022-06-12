@@ -1,5 +1,15 @@
+html{
+    height: 100%;
+}
 body{
     margin: 0;
+    height: 100%;
+}
+#root{
+    height: 100%;
+}
+#mainScreen{
+    height: 100%;
 }
 a{
     cursor: pointer;
@@ -234,14 +244,15 @@ textarea{
 
 
 .blur-in {
-    animation: blur 0.3s forwards;
+    animation: blur 0.1s forwards;
 }
 @keyframes blur {
     0% {
-        filter: blur(0px);
+        filter: blur(0px) brightness(100%);
     }
 
     100% {
-        filter: blur(4px);
+        filter: blur(3px) brightness(80%);
+        background-color: rgba(0, 0, 0, 0.3);
     }
 }

@@ -1,45 +1,75 @@
 import ColumnCards from './Cards';
 import React from 'react';
 
-function Trello({data, countId, setcountId}){
+function Trello({columnsData, setcolumnsData, countId, setCountId}){
+  
+    async function addColumn(ev){
+        ev.preventDefault()
+        console.log('')
+        console.log('run')
+        await setcolumnsData(function (oldData) {
+            console.log('setcolumnsData', oldData)
+            let dataArray = oldData.data
+            let newId = dataArray.length + 1
+            dataArray.push(
+                { 
+                    name: "Column " + newId,
+                    id: 'column' + newId,
+                    cards: []
+                }
+            )
+            return {
+                ...oldData,
+                data: dataArray
+            }
+        })
+        console.log('endrun')
+        console.log('')
+        
+    }
     return (
-        <div className='flex'>
-            {
-            data.map(columnObject => {
-                return <Column key={columnObject.id} setcountId={setcountId} countId={countId} columnObject={columnObject} />
-            })
-        }
+        <div>        
+            <div className='flex'>
+                {
+                columnsData.data.map(columnObject => {
+                    return <Column key={columnObject.id} setCountId={setCountId} countId={countId} columnObject={columnObject} />
+                })
+            }
+            <button onClick={addColumn}>Update</button>
+        </div>
     </div>
     )
 }
 
-function Column({columnObject, countId, setcountId}){
+function Column({columnObject, countId, setCountId}){
     let [cardsArray, setData] = React.useState(columnObject.cards)
     
     function addCard(ev){
-        console.log('b', cardsArray, countId)
-        let textarea = document.getElementById("newCardText" + ev.target.id)
-        let newName = textarea.value
-        textarea.value = ""
-        setcountId(countId => countId+1)
-        setData((cardsArray2) => {
-            cardsArray2.push({
-                name: newName,
-                id: "card" + countId,
-            })
-            return cardsArray2
-        })
-        console.log('a', cardsArray, countId)
+        let buttonId = ev.target.id
+        let textarea = document.getElementById('newCardText' + buttonId)
+        let newCardText = textarea.value
+        if(newCardText.length > 0){
+            textarea.value = ""
+            setCountId(countId => countId+1)
+            setData(function (cardsArray) {
+                    cardsArray.push({
+                        name: newCardText,
+                        id:countId,
+                    });
+                    return cardsArray;
+                })
+        }
     }
     return (
-    <div className="horiz-scroll p-5 bg-primary bg-opacity-25">
-        <div id={columnObject.id} className="column rounded bg-secondary bg-opacity-25 p-3">
-            <b>{columnObject.name}</b>
-            <div className='allowDrop' onDrop={drop} onDragOver={allowDrop}>
-                <ColumnCards cardsData={columnObject.cards}/>
+    <div onDrop={drop} onDragOver={allowDrop} className="parentDrop horiz-scroll p-5 bg-primary bg-opacity-25">
+        {countId}
+        <div id={columnObject.id} className="parentDrop column rounded bg-secondary bg-opacity-25 p-3">
+            <b className='siblingDrop'>{columnObject.name}</b>
+            <div className='allowDrop' >
+                <ColumnCards cardsData={cardsArray}/>
             </div>
-            <textarea id={"newCardText"+columnObject.id} placeholder="Ввести заголовок для этой карточки" className="my-2 form-control"></textarea>
-            <button id={columnObject.id} onClick={addCard} className="btn btn-primary btn-sm">
+            <textarea id={"newCardText"+columnObject.id} placeholder="Ввести заголовок для этой карточки" className="my-2 form-control siblingDrop"></textarea>
+            <button id={columnObject.id} onClick={addCard} className="siblingDrop btn btn-primary btn-sm">
                 Добавить карточку
             </button>
         </div>
@@ -50,7 +80,23 @@ function Column({columnObject, countId, setcountId}){
 
 function drop(ev){
     var data = ev.dataTransfer.getData("text");
-    ev.target.appendChild(document.getElementById(data));    
+    let classList = ev.target.classList
+    let moveCard = document.getElementById(data)
+    if(classList.contains('allowDrop')){
+        ev.target.appendChild(moveCard);    
+    }
+    else if(classList.contains('ticket')){
+        ev.target.after(moveCard);    
+    }
+    else if(classList.contains('card')){
+        ev.target.parentNode.after(moveCard);
+    }
+    else if(classList.contains('parentDrop')){
+        ev.target.getElementsByClassName('allowDrop')[0].prepend(moveCard)
+    }
+    else if(classList.contains('siblingDrop')){
+        ev.target.parentNode.getElementsByClassName('allowDrop')[0].prepend(moveCard)
+    }
     ev.preventDefault();
 }
 function allowDrop(ev) {
