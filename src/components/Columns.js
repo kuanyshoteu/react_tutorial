@@ -1,30 +1,25 @@
 import ColumnCards from './Cards';
 import React from 'react';
 
-function Trello({columnsData, setcolumnsData, countId, setCountId}){
+function Trello({setCardNameModal, columnsData, setcolumnsData, countId, setCountId}){
   
-    async function addColumn(ev){
-        ev.preventDefault()
-        console.log('')
-        console.log('run')
-        await setcolumnsData(function (oldData) {
-            console.log('setcolumnsData', oldData)
-            let dataArray = oldData.data
+    function addColumn(ev){
+        setcolumnsData(function (oldDataObject) {
+            console.log('setcolumnsData', oldDataObject)
+            let dataArray = oldDataObject.data
             let newId = dataArray.length + 1
             dataArray.push(
-                { 
+                {
                     name: "Column " + newId,
                     id: 'column' + newId,
                     cards: []
                 }
             )
             return {
-                ...oldData,
+                ...oldDataObject,
                 data: dataArray
             }
         })
-        console.log('endrun')
-        console.log('')
         
     }
     return (
@@ -41,7 +36,7 @@ function Trello({columnsData, setcolumnsData, countId, setCountId}){
     )
 }
 
-function Column({columnObject, countId, setCountId}){
+function Column({setCardNameModal, columnObject, countId, setCountId}){
     let [cardsArray, setData] = React.useState(columnObject.cards)
     
     function addCard(ev){
@@ -62,7 +57,6 @@ function Column({columnObject, countId, setCountId}){
     }
     return (
     <div onDrop={drop} onDragOver={allowDrop} className="parentDrop horiz-scroll p-5 bg-primary bg-opacity-25">
-        {countId}
         <div id={columnObject.id} className="parentDrop column rounded bg-secondary bg-opacity-25 p-3">
             <b className='siblingDrop'>{columnObject.name}</b>
             <div className='allowDrop' >

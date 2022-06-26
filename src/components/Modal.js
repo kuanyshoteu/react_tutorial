@@ -1,7 +1,5 @@
-
-
 import React from 'react';
-export default function Modal(){
+export default function Modal({cardNameModal}){
     function hide_modal(event){
         if(event.target.id === "modalScreen" || event.target.id === "closeIcon"){
             let modal = document.getElementById('modalScreen')
@@ -15,6 +13,7 @@ export default function Modal(){
             <div className='modalBox'>
                 <a id='closeIcon' onClick={hide_modal} className='closeIcon'>x</a>
                 <button className='btn btn-primary'>It works</button>
+                {cardNameModal}
             </div>
         </div>
     )

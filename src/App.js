@@ -8,31 +8,32 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import data from './components/data';
 import React from 'react';
 
+export const ManagerContext = React.createContext(null);
 function App() {
     
     let [countId, setCountId] = React.useState(10)
+    let [columnsData, setcolumnsData] = React.useState(
+        {data: data})
+    let [cardNameModal, setCardNameModal] = React.useState("Yo")
     
-    let [columnsData, setcolumnsData] = React.useState({data: data})
+    let [randomuser, setRandomUser] = React.useState({})
+    React.useEffect(() => {
+        fetch('https://randomuser.me/api/', {
+            method:"GET"
+        }).then( response => response.json()).then(a => {
+            console.log(a)
+            setRandomUser(a)
+        })
+    }, [columnsData, countId])
     return (
-        <React.Fragment>
+        <ManagerContext.Provider value={setCardNameModal}>
             <div id='mainScreen'>
                 <Header />
-                <Trello columnsData={columnsData} setcolumnsData={setcolumnsData} countId={countId} setCountId={setCountId}/>
+                <Trello  columnsData={columnsData} setcolumnsData={setcolumnsData} countId={countId} setCountId={setCountId}/>
                 <Task></Task>
             </div>
-            <Modal />
-        </React.Fragment>
+            <Modal cardNameModal={cardNameModal} />
+        </ManagerContext.Provider>
     )
 }
-
-
-function Hundred(){
-    var buttons = [] 
-    for(var i = 0; i < 100; i++){
-        var button = <button className='menuLink'>Privet + {i}</button>
-        buttons.push(button)
-    }
-    return buttons
-}
-
 export default App;

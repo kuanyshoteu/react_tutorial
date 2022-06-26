@@ -1,5 +1,7 @@
 import React from 'react';
-function ColumnCards({cardsData}){
+import { ManagerContext } from "../App";
+
+function ColumnCards({setCardNameModal, cardsData}){
     return (
         <React.Fragment>
             {
@@ -12,6 +14,14 @@ function ColumnCards({cardsData}){
 }
 
 function Card({cardObject}){
+    const setCardNameModal2 = React.useContext(ManagerContext);
+    function show_modal(){
+        setCardNameModal2(cardObject.name)
+        let modal = document.getElementById('modalScreen')
+        let main = document.getElementById('mainScreen')
+        modal.classList.remove('hidden')
+        main.classList.add('blur-in')
+    }
     return(
     <div onClick={show_modal} id={cardObject.id} onDragStart={drag} draggable="true" className="ticket my-2">
         <div className="card bg-white py-1 px-3 shadow-sm rounded">
@@ -20,12 +30,7 @@ function Card({cardObject}){
     </div>
     )
 }
-function show_modal(){
-    let modal = document.getElementById('modalScreen')
-    let main = document.getElementById('mainScreen')
-    modal.classList.remove('hidden')
-    main.classList.add('blur-in')
-}
+
 function drag(ev){
     ev.dataTransfer.setData("text", ev.target.id);
     console.log(ev.dataTransfer)
