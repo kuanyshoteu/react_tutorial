@@ -1,7 +1,7 @@
 import ColumnCards from './Cards';
 import React from 'react';
 
-function Trello({setCardNameModal, columnsData, setcolumnsData, countId, setCountId}){
+function AllColumns({columnsData, setcolumnsData, countId, setCountId}){
   
     function addColumn(ev){
         setcolumnsData(function (oldDataObject) {
@@ -36,7 +36,7 @@ function Trello({setCardNameModal, columnsData, setcolumnsData, countId, setCoun
     )
 }
 
-function Column({setCardNameModal, columnObject, countId, setCountId}){
+function Column({columnObject, countId, setCountId}){
     let [cardsArray, setData] = React.useState(columnObject.cards)
     
     function addCard(ev){
@@ -96,4 +96,4 @@ function drop(ev){
 function allowDrop(ev) {
     ev.preventDefault();
 }
-export default Trello
+export default AllColumns

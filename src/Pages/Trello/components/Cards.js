@@ -1,5 +1,5 @@
 import React from 'react';
-import { ManagerContext } from "../App";
+import { ManagerContext } from "../Trello";
 
 function ColumnCards({setCardNameModal, cardsData}){
     return (
