@@ -5,9 +5,10 @@ import Modal from './components/Modal';
 import React from 'react';
 import data from './components/data';
 
+import rocketImg from '../../rocket.jpg'
 
 export const ManagerContext = React.createContext(null);
-function Trello() {
+function Trello({logo}) {
     
     let [countId, setCountId] = React.useState(10)
     let [columnsData, setcolumnsData] = React.useState(
@@ -20,7 +21,7 @@ function Trello() {
         <ManagerContext.Provider value={setCardNameModal}>
             <div id='mainScreen'>
                 
-                <Header />
+                
                 <AllColumns  columnsData={columnsData} setcolumnsData={setcolumnsData} countId={countId} setCountId={setCountId}/>
                 <Task></Task>
             </div>

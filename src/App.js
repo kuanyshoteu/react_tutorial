@@ -7,18 +7,36 @@ import {BrowserRouter, Routes, Route} from "react-router-dom";
 
 import Trello from './Pages/Trello/Trello';
 import LandingPage from './Pages/LandingPage/LandingPage'
+import Header from './CommonComponents/Header';
 
 function App() {
+    function showButton(){
+        let hiddenButton1 = document.getElementById('hiddenButton1').classList.remove('hidden')
+        
+    }
+    function hideButton(event){
+        let hiddenButton1 = document.getElementById('hiddenButton1').classList.add('hidden')
+    }
     return(
     <BrowserRouter>
-        <div>This is Header</div>
-        <a href='/'>Landing</a>
-        <a href='/trello'>Trello</a>
-        <Routes>
-            <Route path="/trello" element={<Trello></Trello>}></Route>
-            <Route path="/" element={<LandingPage />}></Route>
-        </Routes>
-        <div>This is Footer</div>
+        <Header />
+        <div > {"<"} </div>
+        <div className='bg-secondary p-2 text-dark bg-opacity-10'>
+            <Routes>
+                <Route path="/trello" element={<Trello logo={logo}></Trello>}></Route>
+                <Route path="/" element={<LandingPage logo={logo}/>}></Route>
+                <Route path="/gladiator" element={<LandingPage logo={logo}/>}></Route>
+            </Routes>
+            <div className='d-flex centered mt-16'>
+                <div className='d-flex centered w-50 shadow-sm p-3 mb-5 bg-body rounded'>
+                    <img onMouseLeave={hideButton} onMouseOver={showButton} src='/images/logo192.png'></img>
+                    <div onMouseOver={showButton} id='hiddenButton1' className='hidden bg-secondary position-absolute mt-5'>
+                        <div>Text</div>
+                        <button>Button</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </BrowserRouter>
     )
 }
