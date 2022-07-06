@@ -1,9 +1,12 @@
 
-function Header() {
+function Header({setCountId}) {
     return <section className="flex header mb-50">
-        <div className="logo">Battle Of Math 2</div>
+        <a href="/" className="logo">Battle Of Math 2</a>
         <div className="menu">
-            <a className="menuLink" href="/trello">Trello</a> 
+            <a className="menuLink" href="/trello/0">Trello</a> 
+            <a className="menuLink" href="/trello/1">Trello</a> 
+            <a className="menuLink" href="/trello/2">Trello</a> 
+            <a className="menuLink" href="/trello/79">Trello</a> 
             {/* localhost:3000 */}
             <a className="menuLink" href="/gladiator">Gladiator</a>
         </div>
