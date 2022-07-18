@@ -1,9 +1,10 @@
 
-export default function Task(){
+export default function Task({index}){
     
     return (
         <div>
-            <div className="name"></div>
+            55
+            <div className="name">{index}</div>
         </div>
     )
 }

@@ -17,7 +17,7 @@ import {
   } from 'mdb-react-ui-kit';
   import React, { useState } from 'react';
 
-function Header({setCountId}) {
+function Footer({setCountId}) {
     const [showBasic, setShowBasic] = useState(false);
     return (
         <MDBNavbar expand='lg' light bgColor='light'>
@@ -82,4 +82,4 @@ function Header({setCountId}) {
 
 
 
-export default Header;
+export default Footer;
